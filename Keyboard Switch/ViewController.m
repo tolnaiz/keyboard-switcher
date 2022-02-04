@@ -6,6 +6,10 @@
 //
 
 #import "ViewController.h"
+#include <stdio.h>
+#include <stdlib.h>
+#include <Carbon/Carbon.h>
+#include <Foundation/Foundation.h>
 
 @implementation ViewController
 
@@ -23,4 +27,6 @@
 }
 
 
+
 @end
+
