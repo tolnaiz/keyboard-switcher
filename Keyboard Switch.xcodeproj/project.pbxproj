@@ -7,19 +7,16 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		2EDE980D27298253001A4D34 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 2EDE980C27298253001A4D34 /* AppDelegate.m */; };
+		2EBA2ABC2EE6CDD200C82340 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EBA2ABB2EE6CDD200C82340 /* AppDelegate.swift */; };
+		2EBA2ABE2EE6CF8B00C82340 /* main.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EBA2ABD2EE6CF8B00C82340 /* main.swift */; };
 		2EDE981227298254001A4D34 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 2EDE981127298254001A4D34 /* Assets.xcassets */; };
-		2EDE981527298254001A4D34 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2EDE981327298254001A4D34 /* Main.storyboard */; };
-		2EDE981727298254001A4D34 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 2EDE981627298254001A4D34 /* main.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		2EBA2ABB2EE6CDD200C82340 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		2EBA2ABD2EE6CF8B00C82340 /* main.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = main.swift; sourceTree = "<group>"; };
 		2EDE980827298253001A4D34 /* Keyboard Switch.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Keyboard Switch.app"; sourceTree = BUILT_PRODUCTS_DIR; };
-		2EDE980B27298253001A4D34 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
-		2EDE980C27298253001A4D34 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
 		2EDE981127298254001A4D34 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
-		2EDE981427298254001A4D34 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
-		2EDE981627298254001A4D34 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		2EDE981827298254001A4D34 /* Keyboard_Switch.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Keyboard_Switch.entitlements; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -53,11 +50,9 @@
 		2EDE980A27298253001A4D34 /* Keyboard Switch */ = {
 			isa = PBXGroup;
 			children = (
-				2EDE980B27298253001A4D34 /* AppDelegate.h */,
-				2EDE980C27298253001A4D34 /* AppDelegate.m */,
+				2EBA2ABD2EE6CF8B00C82340 /* main.swift */,
+				2EBA2ABB2EE6CDD200C82340 /* AppDelegate.swift */,
 				2EDE981127298254001A4D34 /* Assets.xcassets */,
-				2EDE981327298254001A4D34 /* Main.storyboard */,
-				2EDE981627298254001A4D34 /* main.m */,
 				2EDE981827298254001A4D34 /* Keyboard_Switch.entitlements */,
 			);
 			path = "Keyboard Switch";
@@ -94,6 +89,7 @@
 				TargetAttributes = {
 					2EDE980727298253001A4D34 = {
 						CreatedOnToolsVersion = 13.1;
+						LastSwiftMigration = 2610;
 					};
 				};
 			};
@@ -121,7 +117,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				2EDE981227298254001A4D34 /* Assets.xcassets in Resources */,
-				2EDE981527298254001A4D34 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -132,23 +127,12 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				2EDE981727298254001A4D34 /* main.m in Sources */,
-				2EDE980D27298253001A4D34 /* AppDelegate.m in Sources */,
+				2EBA2ABE2EE6CF8B00C82340 /* main.swift in Sources */,
+				2EBA2ABC2EE6CDD200C82340 /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
-
-/* Begin PBXVariantGroup section */
-		2EDE981327298254001A4D34 /* Main.storyboard */ = {
-			isa = PBXVariantGroup;
-			children = (
-				2EDE981427298254001A4D34 /* Base */,
-			);
-			name = Main.storyboard;
-			sourceTree = "<group>";
-		};
-/* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
 		2EDE981927298254001A4D34 /* Debug */ = {
@@ -202,6 +186,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
+				INFOPLIST_KEY_LSUIElement = YES;
 				MACOSX_DEPLOYMENT_TARGET = 12.0;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
@@ -255,6 +240,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
+				INFOPLIST_KEY_LSUIElement = YES;
 				MACOSX_DEPLOYMENT_TARGET = 12.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
@@ -267,6 +253,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = "Keyboard Switch/Keyboard_Switch.entitlements";
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
@@ -274,8 +261,8 @@
 				DEVELOPMENT_TEAM = 5MTZ5Y7S5P;
 				ENABLE_HARDENED_RUNTIME = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_LSUIElement = YES;
 				INFOPLIST_KEY_NSHumanReadableCopyright = "";
-				INFOPLIST_KEY_NSMainStoryboardFile = Main;
 				INFOPLIST_KEY_NSPrincipalClass = NSApplication;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -285,6 +272,8 @@
 				PRODUCT_BUNDLE_IDENTIFIER = "me.tolnaiz.Keyboard-Switch";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 6.0;
 			};
 			name = Debug;
 		};
@@ -293,6 +282,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = "Keyboard Switch/Keyboard_Switch.entitlements";
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
@@ -300,8 +290,8 @@
 				DEVELOPMENT_TEAM = 5MTZ5Y7S5P;
 				ENABLE_HARDENED_RUNTIME = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_LSUIElement = YES;
 				INFOPLIST_KEY_NSHumanReadableCopyright = "";
-				INFOPLIST_KEY_NSMainStoryboardFile = Main;
 				INFOPLIST_KEY_NSPrincipalClass = NSApplication;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -311,6 +301,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = "me.tolnaiz.Keyboard-Switch";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 6.0;
 			};
 			name = Release;
 		};
