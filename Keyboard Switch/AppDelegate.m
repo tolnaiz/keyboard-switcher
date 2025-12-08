@@ -15,6 +15,7 @@
 @implementation AppDelegate
 
 - (void)applicationDidFinishLaunching:(NSNotification *)aNotification {
+    [NSApp setActivationPolicy: NSApplicationActivationPolicyProhibited];
     [[[NSWorkspace sharedWorkspace] notificationCenter] addObserver:self
                           selector:@selector(appDidActivate:)
                          name:NSWorkspaceDidActivateApplicationNotification
@@ -65,11 +66,15 @@
     
     NSDictionary *dict = @{
         @"com.sublimetext.4": @"org.unknown.keylayout.USqwertz",
-        @"net.kovidgoyal.kitty": @"org.unknown.keylayout.USqwertz",
+        @"com.jetbrains.PhpStorm": @"org.unknown.keylayout.USqwertz",
         @"com.apple.Terminal": @"org.unknown.keylayout.USqwertz",
         @"com.apple.dt.Xcode": @"org.unknown.keylayout.USqwertz",
         @"com.googlecode.iterm2": @"org.unknown.keylayout.USqwertz",
-        @"com.github.atom": @"org.unknown.keylayout.USqwertz"
+        @"com.torusknot.SourceTreeNotMAS": @"org.unknown.keylayout.USqwertz",
+        @"com.microsoft.VSCode": @"org.unknown.keylayout.USqwertz",
+        @"net.kovidgoyal.kitty": @"org.unknown.keylayout.USqwertz",
+        @"com.vscodium": @"org.unknown.keylayout.USqwertz",
+        @"com.todesktop.230313mzl4w4u92": @"org.unknown.keylayout.USqwertz"
     };
     NSString *inputSourceKey = @"";
     if (dict[app.bundleIdentifier]){
@@ -80,35 +85,10 @@
         //NSLog(@"NOT exists");
     }
     NSLog(@"String:%@",app.bundleIdentifier);
-    NSString *baseCommand = @"/Users/tolnaiz/bin/InputSourceSelector select ";
+    NSString *baseCommand = @"~/bin/InputSourceSelector select ";
     NSString *cmd = [baseCommand stringByAppendingString:inputSourceKey];
 
     NSString *output = [self runCommand:cmd];
-/*
-    NSString *inputSourceID = [NSString stringWithUTF8String:inputSourceKey];
-    NSDictionary *properties = [NSDictionary dictionaryWithObject:inputSourceID
-                                                                forKey:(NSString *)kTISPropertyInputSourceID];
-    NSArray *inputSources = (__bridge NSArray *)TISCreateInputSourceList((__bridge CFDictionaryRef) properties, true);
-    
-    TISInputSourceRef a = (__bridge TISInputSourceRef)[inputSources objectAtIndex:0];
-    NSString *localizedName = TISGetInputSourceProperty(a, kTISPropertyLocalizedName);
-    NSLog(localizedName);
-    
-     OSStatus err = TISSelectInputSource((__bridge TISInputSourceRef) [inputSources objectAtIndex:0]);
-     if(err != noErr){
-         NSLog(@"%d", err);
-         TISSelectInputSource((__bridge TISInputSourceRef) [inputSources objectAtIndex:0]);
-     }else{
-         NSLog(@"selected %s", inputSourceKey);
-     }
-     
- */
-    
-//    dispatch_time_t delay = dispatch_time(DISPATCH_TIME_NOW, NSEC_PER_SEC * 0.3);
-//    dispatch_after(delay, dispatch_get_main_queue(), ^(void){
-//        TISSelectInputSource((__bridge TISInputSourceRef) [inputSources objectAtIndex:0]);
-//    });
-
 
 }
 
