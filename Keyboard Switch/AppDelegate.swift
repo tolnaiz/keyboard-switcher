@@ -136,10 +136,13 @@ struct KeyboardSwitchConfig: Codable {
     }
 }
 
+@MainActor
 final class AppDelegate: NSObject, NSApplicationDelegate {
 
     private var config: KeyboardSwitchConfig!
     private var activationObserver: Any?
+    private var configFileDescriptor: Int32 = -1
+    private var configWatchSource: DispatchSourceFileSystemObject?
 
     override init() {
         super.init()
@@ -151,6 +154,9 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
         // Load configuration
         config = KeyboardSwitchConfig.load()
         NSLog("Keyboard Switch: Loaded %d app mappings", config.appLayouts.count)
+
+        // Start watching config file for changes
+        startWatchingConfigFile()
 
         // Observe frontmost app changes.
         activationObserver = NSWorkspace.shared.notificationCenter.addObserver(
@@ -172,6 +178,70 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
         if let observer = activationObserver {
             NSWorkspace.shared.notificationCenter.removeObserver(observer)
         }
+        stopWatchingConfigFile()
+    }
+
+    // MARK: - Config File Watching
+
+    private func startWatchingConfigFile() {
+        let path = KeyboardSwitchConfig.configPath
+
+        // Open file descriptor for monitoring
+        configFileDescriptor = open(path, O_EVTONLY)
+        guard configFileDescriptor >= 0 else {
+            NSLog("Keyboard Switch: Could not open config file for watching: %@", path)
+            return
+        }
+
+        // Create dispatch source to monitor file changes using kqueue (very efficient)
+        let source = DispatchSource.makeFileSystemObjectSource(
+            fileDescriptor: configFileDescriptor,
+            eventMask: [.write, .delete, .rename, .attrib],
+            queue: .main
+        )
+
+        source.setEventHandler { [weak self] in
+            guard let self else { return }
+
+            let flags = source.data
+            if flags.contains(.delete) || flags.contains(.rename) {
+                // File was deleted or renamed, need to re-establish watch
+                NSLog("Keyboard Switch: Config file was deleted/renamed, re-establishing watch")
+                self.stopWatchingConfigFile()
+                // Wait a moment for the new file to be created (e.g., by editors that do atomic saves)
+                Task { @MainActor [weak self] in
+                    try? await Task.sleep(nanoseconds: 500_000_000)
+                    self?.reloadConfig()
+                    self?.startWatchingConfigFile()
+                }
+            } else {
+                NSLog("Keyboard Switch: Config file changed, reloading")
+                self.reloadConfig()
+            }
+        }
+
+        source.setCancelHandler { [weak self] in
+            guard let self, self.configFileDescriptor >= 0 else { return }
+            close(self.configFileDescriptor)
+            self.configFileDescriptor = -1
+        }
+
+        source.resume()
+        configWatchSource = source
+        NSLog("Keyboard Switch: Started watching config file: %@", path)
+    }
+
+    private func stopWatchingConfigFile() {
+        configWatchSource?.cancel()
+        configWatchSource = nil
+    }
+
+    private func reloadConfig() {
+        config = KeyboardSwitchConfig.load()
+        NSLog("Keyboard Switch: Reloaded config with %d app mappings", config.appLayouts.count)
+
+        // Re-apply for current frontmost app in case the mapping changed
+        handleActivation(of: NSWorkspace.shared.frontmostApplication)
     }
 
     private func handleActivation(of app: NSRunningApplication?) {
