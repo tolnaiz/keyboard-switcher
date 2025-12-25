@@ -34,6 +34,20 @@ Alternatively, build from the command line:
 xcodebuild -project "Keyboard Switch.xcodeproj" -scheme "Keyboard Switch" -configuration Release
 ```
 
+## Running Unsigned Builds
+
+If you download a pre-built release or build without code signing, macOS Gatekeeper will block the app. To allow it:
+
+1. Try to open the app normally (it will be blocked)
+2. Go to **System Settings → Privacy & Security**
+3. Scroll down to find the message about "Keyboard Switch" being blocked
+4. Click **Open Anyway**
+
+Alternatively, remove the quarantine attribute via Terminal:
+```bash
+xattr -dr com.apple.quarantine "/Applications/Keyboard Switch.app"
+```
+
 ## Configuration
 
 On first launch, the app creates a config file at:
