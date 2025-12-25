@@ -1,12 +1,12 @@
 # Keyboard Switch
 
-A lightweight macOS menu bar utility that automatically switches keyboard input sources based on the active application. Perfect for developers who prefer a programmer-friendly layout (like US-QWERTZ) in code editors and terminals, but their native language layout elsewhere.
+A lightweight macOS utility that automatically switches keyboard input sources based on the active application. Perfect for developers who prefer a programmer-friendly layout (like US-QWERTZ) in code editors and terminals, but their native language layout elsewhere.
 
 ## Features
 
 - 🔄 Automatic keyboard layout switching when apps gain focus
 - ⚙️ JSON-based configuration with hot-reload (no restart needed)
-- 🪶 Runs silently in the menu bar (no dock icon)
+- 🪶 Runs completely silently (no menubar, no dock icon)
 - 🖥️ Native macOS app using Carbon Text Input Source APIs
 
 ## Requirements
