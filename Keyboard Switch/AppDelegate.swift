@@ -33,6 +33,18 @@ struct InputSourceManager {
             throw InputSourceError.selectionFailed(inputSourceID)
         }
 
+        // Give the system a moment to complete the switch
+        RunLoop.current.run(until: Date(timeIntervalSinceNow: 0.05))
+
+        // Verify the switch actually happened
+        if let currentID = currentInputSourceID(), currentID != inputSourceID {
+            NSLog("Keyboard Switch: Switch verification failed, retrying...")
+            let retryStatus = TISSelectInputSource(inputSource)
+            if retryStatus != noErr {
+                throw InputSourceError.selectionFailed(inputSourceID)
+            }
+        }
+
         NSLog("Keyboard Switch: Selected input source: %@", inputSourceID)
     }
 
@@ -252,18 +264,23 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
         // Look up the keyboard layout for this app, or use the default
         let inputSourceID = config.appLayouts[bundleID] ?? config.defaultLayout
 
-        // Only switch if different from current
-        if let currentID = InputSourceManager.currentInputSourceID(), currentID == inputSourceID {
-            NSLog("Keyboard Switch: Already using %@, skipping", inputSourceID)
-            return
-        }
+        // Small delay to let the system settle after app activation
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) { [weak self] in
+            guard let self else { return }
 
-        NSLog("Switching to keyboard layout: %@", inputSourceID)
+            // Only switch if different from current
+            if let currentID = InputSourceManager.currentInputSourceID(), currentID == inputSourceID {
+                NSLog("Keyboard Switch: Already using %@, skipping", inputSourceID)
+                return
+            }
 
-        do {
-            try InputSourceManager.select(inputSourceID)
-        } catch {
-            NSLog("Keyboard Switch: %@", error.localizedDescription)
+            NSLog("Switching to keyboard layout: %@", inputSourceID)
+
+            do {
+                try InputSourceManager.select(inputSourceID)
+            } catch {
+                NSLog("Keyboard Switch: %@", error.localizedDescription)
+            }
         }
     }
 }
